@@ -9,7 +9,7 @@ Handoff aid — verify against code and OpenSpec if anything disagrees.
 
 The Job Application Agent MVP (capabilities 01–10) is feature-complete. OpenSpec change **`deploy-hardening`** is in progress: route hardening, bundle/Lighthouse audit scripts, deploy docs, and a11y fixes are landed. Local production audits pass NFR-PERF-03 (128.6 KB gz root JS), FCP ~0.79s, and Lighthouse a11y 96.
 
-**Production URL:** https://2026-fwdays-agentic-greenfield-task-7n67l32po.vercel.app/ (see [`deploy.md`](deploy.md)). **Action:** disable Vercel Deployment Protection for public demo; push CV MIME fix (Windows empty `file.type`).
+**Production URL:** https://2026-fwdays-agentic-greenfield-task-delta.vercel.app/ (see [`deploy.md`](deploy.md)). **Action:** verify full pipeline on production; record video demo; open PR.
 
 ## Capability status
 

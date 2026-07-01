@@ -48,7 +48,7 @@ BC-DEMO-01 requires a **public** demo with no login wall. If visitors are redire
 
 Without this, `/api/*` routes also redirect unauthenticated `fetch` calls, so CV upload and the pipeline fail silently for public users.
 
-**Production URL (2026-07-01):** https://2026-fwdays-agentic-greenfield-task-7n67l32po.vercel.app/
+**Production URL (2026-07-01):** https://2026-fwdays-agentic-greenfield-task-delta.vercel.app/
 
 ## Deploy workflow
 
