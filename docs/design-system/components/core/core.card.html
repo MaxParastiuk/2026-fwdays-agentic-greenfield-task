@@ -1,0 +1,62 @@
+<!-- @dsCard group="Components" viewport="700x300" name="Core — buttons, tags, cards" subtitle="Actions, icon buttons, tags, surfaces" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; background: var(--paper); font-family: var(--font-sans); color: var(--text-strong); }
+  #root { padding: 22px 24px; }
+  .row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+  .lbl { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--text-faint); width: 100%; margin-bottom: -6px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  const { Button, IconButton, Tag, Card } = window.JobApplicationAgentDesignSystem_8adca7;
+  function Demo() {
+    return (
+      <div>
+        <div className="row">
+          <span className="lbl">Buttons</span>
+          <Button variant="primary" icon="pen-line">Generate cover letter</Button>
+          <Button variant="secondary">Paste text instead</Button>
+          <Button variant="ghost" iconRight="arrow-right">See iterations</Button>
+          <Button variant="primary" disabled>Disabled</Button>
+          <Button variant="primary" loading>Generating</Button>
+        </div>
+        <div className="row">
+          <span className="lbl">Sizes &amp; icon buttons</span>
+          <Button size="sm">Small</Button>
+          <Button size="md">Medium</Button>
+          <Button size="lg">Large</Button>
+          <IconButton icon="copy" label="Copy" solid />
+          <IconButton icon="x" label="Close" />
+          <IconButton icon="refresh-cw" label="Retry" solid />
+        </div>
+        <div className="row">
+          <span className="lbl">Tags</span>
+          <Tag tone="neutral" icon="file-text">PDF · 142 KB</Tag>
+          <Tag tone="accent" mono>gemini-2.0-flash</Tag>
+          <Tag tone="pass">Quantified impact</Tag>
+          <Tag tone="mid">Tone slightly generic</Tag>
+          <Tag tone="fail">No metrics</Tag>
+        </div>
+        <div className="row">
+          <span className="lbl">Cards</span>
+          <Card elevation="flat" padding="sm" style={{width:150,fontSize:13,color:'var(--text-muted)'}}>Flat surface</Card>
+          <Card elevation="raised" padding="sm" style={{width:150,fontSize:13,color:'var(--text-muted)'}}>Raised panel</Card>
+          <Card elevation="floating" padding="sm" style={{width:150,fontSize:13,color:'var(--text-muted)'}}>Floating dialog</Card>
+        </div>
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

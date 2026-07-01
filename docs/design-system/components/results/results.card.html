@@ -1,0 +1,61 @@
+<!-- @dsCard group="Components" viewport="700x560" name="Results — score, timeline, letter" subtitle="Score badges, iteration history, gap list, letter panel" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; background: var(--paper); font-family: var(--font-sans); color: var(--text-strong); }
+  #root { padding: 22px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px 30px; align-items: start; }
+  .lbl { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 12px; }
+  .stack { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  const NS = window.JobApplicationAgentDesignSystem_8adca7;
+  const { ScoreBadge, IterationTimeline, GapList, LetterPanel } = NS;
+  const LETTER = "Dear hiring team,\n\nYour staff engineer posting calls for someone who can steady a fast-growing platform without slowing it down. Over the last four years I have done exactly that: I cut p99 latency on our payments service by 38 percent and brought on-call pages down from nineteen a week to three.\n\nI would welcome the chance to bring that same focus to your team.\n\nRegards,\nJane Doe";
+  function Demo() {
+    return (
+      <>
+        <div>
+          <div className="lbl">Score badges</div>
+          <div className="stack">
+            <ScoreBadge score={8.6} size="lg" />
+            <ScoreBadge score={6.4} />
+            <ScoreBadge score={3.1} size="sm" />
+          </div>
+          <div style={{height:22}} />
+          <div className="lbl">Gap list</div>
+          <GapList gaps={[
+            'Does not mention experience with distributed tracing',
+            'Closing paragraph is generic; no reference to the team mission',
+          ]} />
+          <div style={{height:14}} />
+          <GapList gaps={[]} />
+        </div>
+        <div>
+          <div className="lbl">Iteration timeline</div>
+          <IterationTimeline iterations={[
+            { iteration: 1, score: 6.4, rationale: 'Solid, but does not address the role focus on reliability.', gaps: ['No mention of on-call experience','Generic closing'] },
+            { iteration: 2, score: 7.8, rationale: 'Closer; quantify the impact.', gaps: ['No metrics quantified'] },
+            { iteration: 3, score: 8.6, rationale: 'Targeted and specific. Meets the bar.', gaps: [] },
+          ]} />
+        </div>
+        <div style={{gridColumn:'1 / -1'}}>
+          <div className="lbl">Letter panel</div>
+          <LetterPanel letter={LETTER} finalScore={8.6} iterations={3} model="google/gemini-2.0-flash" />
+        </div>
+      </>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

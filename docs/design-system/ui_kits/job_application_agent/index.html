@@ -1,0 +1,79 @@
+<!-- @dsCard group="Job Application Agent" viewport="1180x760" name="Web app — full flow" subtitle="Input → run → results, with error state" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Job Application Agent</title>
+<link rel="stylesheet" href="../../styles.css">
+<link rel="icon" href="../../assets/logomark.svg">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  html, body { margin: 0; height: 100%; background: var(--paper); }
+  #root { min-height: 100%; }
+  /* kit preview controls — not part of the product */
+  .kit-ctl {
+    position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 2px; padding: 3px; z-index: 100;
+    background: var(--ink-900); border-radius: 999px; box-shadow: var(--shadow-lg);
+  }
+  .kit-ctl button {
+    font-family: var(--font-mono); font-size: 11px; color: #C9C3B6;
+    background: transparent; border: none; padding: 6px 13px; border-radius: 999px; cursor: pointer;
+  }
+  .kit-ctl button[data-on="true"] { background: rgba(255,255,255,0.12); color: #fff; }
+  .kit-ctl span { color: #6E685D; font-size: 9px; align-self: center; padding: 0 8px 0 6px; letter-spacing: .1em; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="AppShell.jsx"></script>
+<script type="text/babel" src="InputScreen.jsx"></script>
+<script type="text/babel" src="RunningView.jsx"></script>
+<script type="text/babel" src="ResultsScreen.jsx"></script>
+<script type="text/babel">
+  const NSx = window.JobApplicationAgentDesignSystem_8adca7;
+
+  function ErrorView({ onRetry }) {
+    const { ErrorBanner } = NSx;
+    return (
+      <div style={{ maxWidth: 560, margin: '40px auto' }}>
+        <ErrorBanner
+          title="The run could not complete"
+          message="The AI Gateway did not respond after several attempts. Your CV and the job posting are unchanged — run it again, or try once more in a moment."
+          onRetry={onRetry} />
+      </div>
+    );
+  }
+
+  function App() {
+    const [step, setStep] = React.useState('input'); // input | running | results | error
+    const statusFor = { input: 'idle', running: 'running', results: 'complete', error: 'error' }[step];
+    const labelFor = step === 'running' ? 'Running' : undefined;
+
+    let body;
+    if (step === 'input')   body = <window.InputScreen onRun={() => setStep('running')} />;
+    else if (step === 'running') body = <window.RunningView onComplete={() => setStep('results')} />;
+    else if (step === 'results') body = <window.ResultsScreen onReset={() => setStep('input')} />;
+    else body = <ErrorView onRetry={() => setStep('input')} />;
+
+    return (
+      <>
+        <window.AppShell status={statusFor} statusLabel={labelFor}>{body}</window.AppShell>
+        <div className="kit-ctl">
+          <span>VIEW</span>
+          {['input','running','results','error'].map(s => (
+            <button key={s} data-on={step === s} onClick={() => setStep(s)}>{s}</button>
+          ))}
+        </div>
+      </>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

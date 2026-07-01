@@ -1,0 +1,35 @@
+<!-- @dsCard group="Brand" viewport="700x200" subtitle="Logomark + wordmark lockup" name="Logo & wordmark" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--paper); font-family: var(--font-sans); color: var(--text-strong); }
+  .wrap { padding: 26px 28px; display: flex; flex-direction: column; gap: 20px; }
+  .lockup { display: flex; align-items: center; gap: 13px; }
+  .lockup img { width: 40px; height: 40px; display: block; }
+  .word { font-family: var(--font-serif); font-size: 23px; font-weight: 500; letter-spacing: -0.01em; line-height: 1; }
+  .word b { font-weight: 600; }
+  .variants { display: flex; gap: 14px; align-items: center; }
+  .onlight, .ondark { display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: var(--radius-md); }
+  .onlight { background: var(--surface); border: 1px solid var(--border-default); }
+  .ondark { background: var(--accent-900); }
+  .onlight img, .ondark img { width: 34px; height: 34px; }
+  .note { font-size: 11px; color: var(--text-muted); align-self: center; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="lockup">
+      <img src="../assets/logomark.svg" alt="">
+      <div class="word">Job Application <b>Agent</b></div>
+    </div>
+    <div class="variants">
+      <div class="onlight"><img src="../assets/logomark.svg" alt=""></div>
+      <div class="ondark"><img src="../assets/logomark.svg" alt=""></div>
+      <div class="note">The mark — a check above a signature line — reads "a letter, signed off." Clear space ≥ the tile's corner radius on all sides.</div>
+    </div>
+  </div>
+</body>
+</html>

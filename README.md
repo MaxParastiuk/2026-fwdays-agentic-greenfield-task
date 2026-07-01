@@ -1,47 +1,74 @@
-# Agentic Engineering: Greenfield — домашнє завдання
+# Job Application Agent
 
-Курс **fwdays Academy · Agentic Engineering: Greenfield**.
+**Homework — fwdays Academy · Agentic Engineering: Greenfield**
 
-Це завдання — **не про розмір продукту, а про процес**: показати, що ти вмієш будувати з нуля, керуючи AI-агентами **інженерно** (контекст, цикли, верифікація, maker ≠ checker), а не «вайбкодити».
+A privacy-first web app that turns a CV and job posting into a tailored cover letter through a multi-agent **Maker → Checker** AI pipeline. Visitors upload a resume (PDF or plain text), provide the job posting (URL or pasted text), run the loop, and receive the best letter along with scores and gap analysis. No accounts, no cookies, no analytics.
 
-> Стек — **будь-який**. Цей репозиторій навмисно майже порожній: він не привʼязаний до жодної технології. Ти приносиш свій проєкт і свій підхід.
+## What it does
 
-## Що зробити
+1. CV upload (PDF / plain text) with server-side PDF parsing
+2. Job posting input (URL scraping or pasted text)
+3. Maker → Checker loop (up to 3 iterations, target score ≥ 8/10)
+4. Output: cover letter, score history, gap list, copy button
 
-1. **Побудуй невеликий власний проєкт** — будь-який, який тобі цікавий.
-   - Стек вільний: Next.js, Python, Go, Rust, мобільний застосунок, CLI, бот — на твій вибір.
-   - Масштаб скромний. Краще маленький проєкт, проведений через повний інженерний цикл, ніж великий «наче працює».
-2. **Застосуй практики Agentic Engineering** з курсу — стільки, скільки доречно для твого проєкту:
-   - контекст-інженерія (правила / `AGENTS.md`, статичний vs динамічний контекст);
-   - цикли (loop engineering) замість ручного покрокового промптингу;
-   - верифікація: тести / evals / перевірки замість «здається, працює»;
-   - maker ≠ checker (окремий агент або прохід на рев'ю);
-   - специфікації наперед (SDD), якщо доречно.
-   - **Project Factory — за бажанням, не обовʼязково** (хочеш повну фабрику — запусти `/project-factory:init` у себе).
-3. **Запиши відео-демо на 1–2 хвилини**: коротко покажи продукт і розкажи, **як саме ти будував(ла) його агентно**.
+## Stack
 
-## Як здати
+| Layer | Technology |
+| ----- | ---------- |
+| Framework | Next.js 16 (App Router) |
+| UI | React 19, Tailwind CSS 4, design system (`DESIGN.md`) |
+| AI | Vercel AI SDK + AI Gateway (`google/gemini-2.0-flash`) |
+| Validation | Zod 4 |
+| Tests | Jest + Testing Library |
+| Deploy | Vercel |
 
-1. Зроби **fork** цього репозиторію (разом із ним приїдуть конфіг CodeRabbit і шаблон PR).
-2. Увімкни **CodeRabbit** на своєму форку (безкоштовно для публічних репо) — він рев'юитиме твій PR як ментор, українською.
-3. Поклади свій проєкт у форк на окрему гілку (будь-яким стеком). Якщо зручніше тримати код в окремому репозиторії — додай на нього посилання в описі PR.
-4. Відкрий **Pull Request** і заповни шаблон:
-   - **Імʼя** (справжнє);
-   - **посилання на відео-демо** (1–2 хв);
-   - **опис застосованих практик Agentic Engineering** — що саме ти робив(ла) агентно, які інструменти / MCP використав(ла), що вирішував(ла) ти, а що агент.
-5. Прочитай фідбек CodeRabbit, поітеруй за потреби — і **надішли посилання на свій PR** як здачу.
+## Agentic Engineering artifacts
 
-## Як оцінюється
+| Practice | Where in the repo |
+| -------- | ----------------- |
+| **Context engineering** | `AGENTS.md`, `.agents/skills/`, `docs/current-state.md` (dynamic handoff), `docs/requirements.md` (static PRD) |
+| **SDD / specs upfront** | OpenSpec: `openspec/specs/`, changes in `openspec/changes/` |
+| **Maker ≠ Checker** | Separate `agents/maker.ts` and `agents/checker.ts` with no cross-imports; orchestration in `pipeline/runner.ts` |
+| **Loop engineering** | Pipeline iterates the letter until score ≥ 8 or 3 attempts |
+| **Verification** | `npm test` (25+ test files), `npm run audit:bundle`, `npm run audit:lighthouse`, evals logger (`evals/`) |
 
-Дивимось на **докази процесу**, а не на стек:
+See the [PR template](.github/pull_request_template.md) for submission details.
 
-- ✅ вказане справжнє імʼя;
-- ✅ є відео-демо (1–2 хв);
-- ✅ є **змістовний опис** застосованих агентних практик;
-- ✅ результат доведено до кінця (а не «згенерував і кинув»).
+## Local development
 
-**Бонус** — видимі артефакти інженерії: правила / `AGENTS.md`, специфікації, тести / evals, сліди верифікації, окреме рев'ю, записи демо.
+```bash
+npm install
+cp .env.example .env.local
+# Add AI_GATEWAY_API_KEY from Vercel AI Gateway, or: vercel env pull .env.local
+npm run dev
+```
+
+Open http://localhost:3000
+
+### Verification
+
+```bash
+npm run lint && npm run typecheck && npm test && npm run build
+npm run audit:bundle
+npm run audit:lighthouse   # requires production build + Chrome
+```
+
+Deploy and production checklist: [`docs/deploy.md`](docs/deploy.md)
+
+## Structure
+
+```
+app/              # Next.js routes (UI + API)
+agents/           # Maker and Checker (isolated agents)
+pipeline/         # Loop orchestrator
+components/       # UI (forms, results, feedback)
+lib/              # Schemas, CV/job parsing, evals
+openspec/         # Specs and changes (SDD)
+docs/             # PRD, deploy, design system, handoff
+evals/            # Run logs (gitignored)
+```
+
 
 ---
 
-Питання — у каналі курсу. Успіхів, і нехай цикли працюють на тебе 🟢
+Questions — course channel.

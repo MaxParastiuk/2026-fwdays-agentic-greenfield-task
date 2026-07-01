@@ -1,0 +1,34 @@
+<!-- @dsCard group="Colors" viewport="700x150" subtitle="Surfaces, borders, and pipeline status dots" name="Surfaces & status" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--paper); font-family: var(--font-ui); color: var(--text-strong); }
+  .wrap { padding: 20px 24px; display: flex; gap: 28px; align-items: center; }
+  .stack { display: flex; gap: 10px; }
+  .tile { width: 78px; height: 58px; border-radius: var(--radius-md); display: flex; align-items: flex-end; padding: 7px; box-sizing: border-box; font-size: 10px; color: var(--text-muted); }
+  .divider { width: 1px; align-self: stretch; background: var(--border-default); }
+  .status { display: flex; flex-direction: column; gap: 9px; }
+  .srow { display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: var(--text-body); }
+  .dot { width: 9px; height: 9px; border-radius: 50%; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="stack">
+      <div class="tile" style="background:#FFFFFF;border:1px solid var(--border-default)">surface</div>
+      <div class="tile" style="background:#F2EFE8;border:1px solid var(--border-default)">sunken</div>
+      <div class="tile" style="background:#FFFFFF;border:1.5px solid var(--border-strong)">strong</div>
+    </div>
+    <div class="divider"></div>
+    <div class="status">
+      <div class="srow"><span class="dot" style="background:#B0A99B"></span> idle</div>
+      <div class="srow"><span class="dot" style="background:#2F5680"></span> running</div>
+      <div class="srow"><span class="dot" style="background:#2E7D57"></span> complete</div>
+      <div class="srow"><span class="dot" style="background:#AC3A2B"></span> error</div>
+    </div>
+  </div>
+</body>
+</html>
