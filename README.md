@@ -68,24 +68,6 @@ docs/             # PRD, deploy, design system, handoff
 evals/            # Run logs (gitignored)
 ```
 
-## Submission (course assignment)
-
-1. **Fork** this repository (CodeRabbit config and PR template included).
-2. Enable **CodeRabbit** on your fork (free for public repos).
-3. Put your project on a separate branch (`job-application-agent` → PR to `main`).
-4. Open a **Pull Request** and fill in the [template](.github/pull_request_template.md):
-   - your real name;
-   - link to a 1–2 min video demo;
-   - description of agentic practices (what the agent did vs what you did, tools / MCP used).
-5. Address CodeRabbit feedback, iterate if needed, submit the PR link.
-
-### Checklist
-
-- [ ] Production deploy works publicly (Deployment Protection off)
-- [ ] Full pipeline runs end-to-end (CV + job → letter)
-- [ ] Video demo recorded
-- [ ] PR filled out per template
-- [ ] CodeRabbit feedback addressed
 
 ---
 
