@@ -1,6 +1,6 @@
 import { generateText } from "ai";
 
-import { buildMakerMessages } from "./maker-prompt";
+import { buildMakerUserMessage, MAKER_INSTRUCTIONS } from "./maker-prompt";
 import { getMakerModelId } from "./model-config";
 
 export { getMakerModelId };
@@ -12,7 +12,10 @@ export async function makeCoverLetter(
 ): Promise<string> {
   const { text } = await generateText({
     model: getMakerModelId(),
-    messages: buildMakerMessages(cv, jobText, feedback),
+    instructions: MAKER_INSTRUCTIONS,
+    messages: [
+      { role: "user", content: buildMakerUserMessage(cv, jobText, feedback) },
+    ],
   });
 
   const letter = text.trim();

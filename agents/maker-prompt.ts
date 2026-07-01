@@ -1,9 +1,4 @@
-export type MakerMessage = {
-  role: "system" | "user";
-  content: string;
-};
-
-const SYSTEM_PROMPT = `You are a professional cover letter writer.
+export const MAKER_INSTRUCTIONS = `You are a professional cover letter writer.
 
 Write a tailored cover letter that connects the candidate's experience to the job posting.
 
@@ -19,19 +14,16 @@ Address each of the following gaps in your revised cover letter:
 ${items}`;
 }
 
-export function buildMakerMessages(
+export function buildMakerUserMessage(
   cv: string,
   jobText: string,
   feedback?: string[],
-): MakerMessage[] {
+): string {
   const sections = [`CV\n${cv}`, `JOB POSTING\n${jobText}`];
 
   if (feedback && feedback.length > 0) {
     sections.push(buildRevisionSection(feedback));
   }
 
-  return [
-    { role: "system", content: SYSTEM_PROMPT },
-    { role: "user", content: sections.join("\n\n") },
-  ];
+  return sections.join("\n\n");
 }

@@ -26,13 +26,13 @@ describe("makeCoverLetter", () => {
 
     expect(mockedGenerateText).toHaveBeenCalledWith({
       model: DEFAULT_MODEL_ID,
-      messages: expect.arrayContaining([
-        expect.objectContaining({ role: "system" }),
+      instructions: expect.stringContaining("plain text"),
+      messages: [
         expect.objectContaining({
           role: "user",
           content: expect.stringContaining("cv body"),
         }),
-      ]),
+      ],
     });
   });
 
@@ -44,7 +44,7 @@ describe("makeCoverLetter", () => {
     await makeCoverLetter("cv body", "job body", ["Add metrics"]);
 
     const call = mockedGenerateText.mock.calls[0][0];
-    const userMessage = call.messages?.find((message) => message.role === "user");
+    const userMessage = call.messages?.[0];
 
     expect(userMessage?.content).toContain("REVISION INSTRUCTIONS");
     expect(userMessage?.content).toContain("1. Add metrics");

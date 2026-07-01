@@ -3,7 +3,10 @@ import { generateText } from "ai";
 import type { CheckResult } from "@/lib/schemas";
 import { safeParseCheckResult } from "@/lib/validation";
 
-import { buildCheckerMessages } from "./checker-prompt";
+import {
+  buildCheckerUserMessage,
+  CHECKER_INSTRUCTIONS,
+} from "./checker-prompt";
 import { getCheckerModelId } from "./model-config";
 
 export { getCheckerModelId };
@@ -51,7 +54,13 @@ export async function checkCoverLetter(
 ): Promise<CheckResult> {
   const { text } = await generateText({
     model: getCheckerModelId(),
-    messages: buildCheckerMessages(cv, jobText, letter),
+    instructions: CHECKER_INSTRUCTIONS,
+    messages: [
+      {
+        role: "user",
+        content: buildCheckerUserMessage(cv, jobText, letter),
+      },
+    ],
   });
 
   return parseCheckResultFromModelText(text);

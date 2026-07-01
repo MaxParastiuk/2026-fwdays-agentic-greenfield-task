@@ -46,13 +46,13 @@ describe("checkCoverLetter", () => {
 
     expect(mockedGenerateText).toHaveBeenCalledWith({
       model: DEFAULT_MODEL_ID,
-      messages: expect.arrayContaining([
-        expect.objectContaining({ role: "system" }),
+      instructions: expect.stringContaining("JSON"),
+      messages: [
         expect.objectContaining({
           role: "user",
           content: expect.stringContaining("letter body"),
         }),
-      ]),
+      ],
     });
   });
 

@@ -1,9 +1,4 @@
-export type CheckerMessage = {
-  role: "system" | "user";
-  content: string;
-};
-
-const SYSTEM_PROMPT = `You are a cover letter evaluator.
+export const CHECKER_INSTRUCTIONS = `You are a cover letter evaluator.
 
 Score how well a cover letter matches the candidate's CV and the job posting.
 
@@ -20,19 +15,14 @@ The JSON MUST match this shape:
 - gaps: specific improvements the writer should make (empty array if none)
 - rationale: one-sentence summary of the score`;
 
-export function buildCheckerMessages(
+export function buildCheckerUserMessage(
   cv: string,
   jobText: string,
   letter: string,
-): CheckerMessage[] {
-  const userContent = [
+): string {
+  return [
     `CV\n${cv}`,
     `JOB POSTING\n${jobText}`,
     `COVER LETTER\n${letter}`,
   ].join("\n\n");
-
-  return [
-    { role: "system", content: SYSTEM_PROMPT },
-    { role: "user", content: userContent },
-  ];
 }
