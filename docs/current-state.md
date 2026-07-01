@@ -2,14 +2,14 @@
 
 Handoff aid — verify against code and OpenSpec if anything disagrees.
 
-- **Date and time:** 2026-07-01 19:45:00 (Europe/Kyiv)
-- **Phase:** Deploy hardening in progress — local audits pass; Vercel production URL pending
+- **Date and time:** 2026-07-01 20:40:00 (Europe/Kyiv)
+- **Phase:** Deploy hardening in progress — production deployed; CV upload fix + public access pending redeploy
 
 ## Summary
 
 The Job Application Agent MVP (capabilities 01–10) is feature-complete. OpenSpec change **`deploy-hardening`** is in progress: route hardening, bundle/Lighthouse audit scripts, deploy docs, and a11y fixes are landed. Local production audits pass NFR-PERF-03 (128.6 KB gz root JS), FCP ~0.79s, and Lighthouse a11y 96.
 
-**Production URL:** not deployed yet — run `vercel login` && `vercel link`, then push to `main` (see [`deploy.md`](deploy.md)).
+**Production URL:** https://2026-fwdays-agentic-greenfield-task-7n67l32po.vercel.app/ (see [`deploy.md`](deploy.md)). **Action:** disable Vercel Deployment Protection for public demo; push CV MIME fix (Windows empty `file.type`).
 
 ## Capability status
 
@@ -51,18 +51,20 @@ Run on `npm run build && PORT=3001 npm run start`:
 - Lazy-loaded results/progress/error UI (`next/dynamic`) to meet JS budget
 - A11y: `aria-label` on CV upload zone and segmented control group
 - Direct schema import in `home-page-client` (avoids barrel bloat)
+- CV MIME fallback (extension + PDF magic bytes) for Windows browsers with empty `file.type`
+- Run button: contextual hint, primary hover/active styles
 
 ## Next step
 
-1. `vercel login` && `vercel link` (no `.vercel/` in repo yet)
-2. Push to `main` → record production URL here
-3. Re-run checklist on production: pipeline ≤60s, Lighthouse, console silent
+1. Push `job-application-agent` (CV MIME fix + Run button UX) → verify production redeploy
+2. **Dashboard:** Deployment Protection → Off (BC-DEMO-01)
+3. Re-run checklist on production: CV upload on Windows, pipeline ≤60s, Lighthouse, console silent
 4. Mark remaining requirements `shipped` in `requirements.md`
 5. `/opsx:archive` for `deploy-hardening`
 
 ## Blockers
 
-- **Vercel CLI not authenticated** on this machine (`vercel login` required). Git remote exists: `github.com/MaxParastiuk/2026-fwdays-agentic-greenfield-task.git`.
+- **Deployment Protection** may block unauthenticated visitors and API `fetch` (redirect to Vercel Login). Disable in project settings.
 
 Gateway auth for pipeline runs:
 

@@ -37,6 +37,17 @@ vercel env pull .env.local
 
 **Do not** set `NEXT_PUBLIC_*` gateway or provider keys (NFR-SEC-01).
 
+### Deployment Protection (public demo)
+
+BC-DEMO-01 requires a **public** demo with no login wall. If visitors are redirected to Vercel Login, disable protection:
+
+1. Vercel dashboard → **Project** → **Settings** → **Deployment Protection**
+2. Set **Vercel Authentication** (and any SSO requirement) to **Off** for Production (and Preview if reviewers need unauthenticated access)
+
+Without this, `/api/*` routes also redirect unauthenticated `fetch` calls, so CV upload and the pipeline fail silently for public users.
+
+**Production URL (2026-07-01):** https://2026-fwdays-agentic-greenfield-task-7n67l32po.vercel.app/
+
 ## Deploy workflow
 
 ### Production (default branch)

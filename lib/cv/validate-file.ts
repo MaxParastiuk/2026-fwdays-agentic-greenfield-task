@@ -8,12 +8,53 @@ export type CvFileValidationResult =
   | { ok: true; mimeType: CvAcceptedMimeType }
   | { ok: false; error: string };
 
-export function validateCvFile(file: File): CvFileValidationResult {
-  const mimeType = file.type as CvAcceptedMimeType;
+function mimeFromExtension(fileName: string): CvAcceptedMimeType | null {
+  const ext = fileName.toLowerCase().split(".").pop();
+  if (ext === "pdf") {
+    return "application/pdf";
+  }
+  if (ext === "txt") {
+    return "text/plain";
+  }
+  return null;
+}
 
-  if (
-    !CV_ACCEPTED_MIME_TYPES.includes(mimeType as CvAcceptedMimeType)
-  ) {
+function mimeFromBuffer(buffer: Uint8Array): CvAcceptedMimeType | null {
+  if (buffer.length >= 5) {
+    const header = new TextDecoder().decode(buffer.subarray(0, 5));
+    if (header === "%PDF-") {
+      return "application/pdf";
+    }
+  }
+  return null;
+}
+
+/** Resolve MIME from browser metadata, extension, and optional file bytes. */
+export function resolveCvMimeType(
+  file: Pick<File, "name" | "type">,
+  buffer?: Uint8Array,
+): CvAcceptedMimeType | null {
+  const declared = file.type as CvAcceptedMimeType;
+  if (CV_ACCEPTED_MIME_TYPES.includes(declared)) {
+    return declared;
+  }
+
+  const fromExtension = mimeFromExtension(file.name);
+  if (fromExtension) {
+    return fromExtension;
+  }
+
+  if (buffer) {
+    return mimeFromBuffer(buffer);
+  }
+
+  return null;
+}
+
+export function validateCvFile(file: File): CvFileValidationResult {
+  const mimeType = resolveCvMimeType(file);
+
+  if (!mimeType) {
     return {
       ok: false,
       error: "Only PDF and plain-text files are accepted.",

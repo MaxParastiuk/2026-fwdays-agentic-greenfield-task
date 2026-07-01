@@ -446,6 +446,23 @@ body {
   color: var(--text-body);
 }
 
+.ds-file--error {
+  border-color: var(--fail);
+  background: var(--fail-bg);
+}
+
+.ds-file__ic--error {
+  background: color-mix(in srgb, var(--fail) 12%, transparent);
+  color: var(--fail);
+}
+
+.ds-file__meta--error {
+  color: var(--fail);
+  font-family: var(--font-ui);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
 .ds-field {
   display: flex;
   flex-direction: column;
@@ -722,6 +739,32 @@ body {
     background var(--dur-fast) var(--ease-out),
     border-color var(--dur-fast) var(--ease-out),
     color var(--dur-fast) var(--ease-out);
+}
+
+.ds-btn--primary {
+  background: var(--action-bg);
+  color: var(--action-text);
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.ds-btn--primary:hover:not(:disabled) {
+  background: var(--action-bg-hover);
+  box-shadow: var(--shadow-sm);
+}
+
+.ds-btn--primary:active:not(:disabled) {
+  background: var(--action-bg-active);
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+.ds-btn--primary:disabled {
+  background: var(--accent-300);
+  color: var(--text-on-accent);
+  opacity: 0.72;
 }
 
 .ds-btn--secondary {

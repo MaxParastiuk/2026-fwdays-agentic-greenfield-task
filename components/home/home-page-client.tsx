@@ -78,6 +78,9 @@ export function HomePageClient() {
       </InputLayout>
       <RunButton
         disabled={!canRun || status === "running"}
+        hasCv={Boolean(cvText)}
+        hasJob={Boolean(jobText)}
+        isRunning={status === "running"}
         onClick={handleRun}
       />
       <ResultsRegion>{resultsContent}</ResultsRegion>

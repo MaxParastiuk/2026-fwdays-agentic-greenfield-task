@@ -110,4 +110,19 @@ describe("handleCvParse", () => {
       error: "Unsupported file type.",
     });
   });
+
+  it("parses PDF uploads when MIME type is empty but extension is .pdf", async () => {
+    const response = await handleCvParse(
+      makeMultipartRequest(
+        new File([Buffer.from("%PDF-1.4")], "cv.pdf", { type: "" }),
+      ),
+      mockPdfParse,
+    );
+
+    expect(response.status).toBe(200);
+    await expect(response.json()).resolves.toEqual({
+      cvText: "Jane Doe\nEngineer",
+    });
+    expect(mockPdfParse).toHaveBeenCalled();
+  });
 });

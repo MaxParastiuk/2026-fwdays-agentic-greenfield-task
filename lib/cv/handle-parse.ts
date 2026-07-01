@@ -1,11 +1,10 @@
 import {
   cvParseRequestSchema,
   cvParseResponseSchema,
-  CV_ACCEPTED_MIME_TYPES,
   CV_FILE_MAX_BYTES,
-  type CvAcceptedMimeType,
 } from "@/lib/schemas";
 import { extractTextFromBuffer, type PdfParser } from "@/lib/cv/extract-text";
+import { resolveCvMimeType } from "@/lib/cv/validate-file";
 
 export type CvParseErrorBody = { error: string };
 
@@ -53,16 +52,15 @@ async function handleMultipart(
     return jsonError("Missing file field.", 400);
   }
 
-  const mimeType = fileValue.type as CvAcceptedMimeType;
-  if (!CV_ACCEPTED_MIME_TYPES.includes(mimeType)) {
-    return jsonError("Unsupported file type.", 415);
-  }
-
   if (fileValue.size > CV_FILE_MAX_BYTES) {
     return jsonError("That file is over 5 MB.", 413);
   }
 
   const buffer = Buffer.from(await fileValue.arrayBuffer());
+  const mimeType = resolveCvMimeType(fileValue, buffer);
+  if (!mimeType) {
+    return jsonError("Unsupported file type.", 415);
+  }
   let cvText: string;
   try {
     cvText = await extractTextFromBuffer(buffer, mimeType, pdfParse);

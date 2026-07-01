@@ -254,10 +254,11 @@ export function CvInputPanel({ onCvTextChange }: CvInputPanelProps) {
           <UploadZone
             file={cvFile}
             error={uploadError}
+            isParsing={isParsing}
             onSelect={handleFileSelect}
             onRemove={handleFileRemove}
           />
-          {isParsing && cvFile ? (
+          {isParsing && cvFile && !uploadError ? (
             <p className="text-sm text-[var(--text-faint)]">Parsing CV…</p>
           ) : null}
           {cvText ? (

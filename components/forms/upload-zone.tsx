@@ -12,6 +12,7 @@ export interface UploadedFile {
 export interface UploadZoneProps {
   file?: UploadedFile | null;
   error?: string;
+  isParsing?: boolean;
   accept?: string;
   maxLabel?: string;
   onSelect?: (file: File) => void;
@@ -22,6 +23,7 @@ export interface UploadZoneProps {
 export function UploadZone({
   file,
   error,
+  isParsing = false,
   accept = ".pdf,.txt",
   maxLabel = "5 MB",
   onSelect,
@@ -32,14 +34,22 @@ export function UploadZone({
   const [over, setOver] = useState(false);
 
   if (file) {
+    const meta = error
+      ? error
+      : isParsing
+        ? `${file.size} · Parsing…`
+        : `${file.size} · Text extracted`;
+
     return (
-      <div className={`ds-file ${className}`.trim()}>
-        <span className="ds-file__ic">
-          <Icon name="file-text" size={20} />
+      <div className={`ds-file ${error ? "ds-file--error" : ""} ${className}`.trim()}>
+        <span className={`ds-file__ic ${error ? "ds-file__ic--error" : ""}`}>
+          <Icon name={error ? "alert-triangle" : "file-text"} size={20} />
         </span>
         <div>
           <div className="ds-file__name">{file.name}</div>
-          <div className="ds-file__meta">{file.size} · parsed server-side</div>
+          <div className={`ds-file__meta ${error ? "ds-file__meta--error" : ""}`}>
+            {meta}
+          </div>
         </div>
         <button
           type="button"
