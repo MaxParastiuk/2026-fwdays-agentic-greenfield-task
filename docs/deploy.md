@@ -37,6 +37,8 @@ vercel env pull .env.local
 
 **Do not** set `NEXT_PUBLIC_*` gateway or provider keys (NFR-SEC-01).
 
+`next.config.ts` must list `pdf-parse` and `@napi-rs/canvas` in `serverExternalPackages` so PDF parsing works on Vercel (see [pdf-parse troubleshooting](https://github.com/mehmet-kozan/pdf-parse/blob/main/docs/troubleshooting.md)).
+
 ### Deployment Protection (public demo)
 
 BC-DEMO-01 requires a **public** demo with no login wall. If visitors are redirected to Vercel Login, disable protection:

@@ -14,6 +14,7 @@
     "audit:lighthouse": "node scripts/audit-lighthouse.mjs"
   },
   "dependencies": {
+    "@napi-rs/canvas": "^0.1.80",
     "ai": "^7.0.9",
     "cheerio": "^1.2.0",
     "next": "16.2.9",

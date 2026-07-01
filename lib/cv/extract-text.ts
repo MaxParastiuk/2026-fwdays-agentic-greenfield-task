@@ -1,3 +1,7 @@
+import "pdf-parse/worker";
+import { CanvasFactory } from "pdf-parse/worker";
+import { PDFParse } from "pdf-parse";
+
 import type { CvAcceptedMimeType } from "@/lib/schemas";
 
 export type PdfParser = (buffer: Buffer) => Promise<{ text: string }>;
@@ -16,8 +20,7 @@ export async function extractTextFromBuffer(
 }
 
 async function defaultPdfParse(buffer: Buffer): Promise<{ text: string }> {
-  const { PDFParse } = await import("pdf-parse");
-  const parser = new PDFParse({ data: buffer });
+  const parser = new PDFParse({ data: buffer, CanvasFactory });
   try {
     const result = await parser.getText();
     return { text: result.text };
