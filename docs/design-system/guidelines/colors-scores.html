@@ -1,0 +1,50 @@
+<!-- @dsCard group="Colors" viewport="700x188" subtitle="Score badge semantics — green / amber / red" name="Score semantics" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--paper); font-family: var(--font-ui); color: var(--text-strong); }
+  .wrap { padding: 22px 24px; display: flex; gap: 14px; }
+  .col { flex: 1; }
+  .badge { display: inline-flex; align-items: baseline; gap: 4px; padding: 5px 11px; border-radius: var(--radius-full); font-family: var(--font-mono); font-weight: 600; font-size: 14px; border: 1px solid; }
+  .badge small { font-size: 10px; opacity: .7; font-weight: 500; }
+  .meta { margin-top: 12px; font-size: 11px; color: var(--text-muted); }
+  .swrow { display: flex; gap: 6px; margin-top: 8px; }
+  .mini { width: 26px; height: 18px; border-radius: 4px; border: 1px solid var(--border-soft); }
+  .mlabel { font-family: var(--font-mono); font-size: 9.5px; color: var(--text-faint); margin-top: 3px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="col">
+      <span class="badge" style="color:#2E7D57;background:#E6F0EA;border-color:#BFD9CB">8.6 <small>/10</small></span>
+      <div class="meta">pass · score ≥ 8</div>
+      <div class="swrow">
+        <div><div class="mini" style="background:#2E7D57"></div><div class="mlabel">--pass</div></div>
+        <div><div class="mini" style="background:#E6F0EA"></div><div class="mlabel">bg</div></div>
+        <div><div class="mini" style="background:#BFD9CB"></div><div class="mlabel">line</div></div>
+      </div>
+    </div>
+    <div class="col">
+      <span class="badge" style="color:#A9741A;background:#F6EDDA;border-color:#E3CFA3">6.4 <small>/10</small></span>
+      <div class="meta">mid · score 5 – 7.9</div>
+      <div class="swrow">
+        <div><div class="mini" style="background:#A9741A"></div><div class="mlabel">--mid</div></div>
+        <div><div class="mini" style="background:#F6EDDA"></div><div class="mlabel">bg</div></div>
+        <div><div class="mini" style="background:#E3CFA3"></div><div class="mlabel">line</div></div>
+      </div>
+    </div>
+    <div class="col">
+      <span class="badge" style="color:#AC3A2B;background:#F5E4E0;border-color:#E2BDB4">3.1 <small>/10</small></span>
+      <div class="meta">fail · score &lt; 5</div>
+      <div class="swrow">
+        <div><div class="mini" style="background:#AC3A2B"></div><div class="mlabel">--fail</div></div>
+        <div><div class="mini" style="background:#F5E4E0"></div><div class="mlabel">bg</div></div>
+        <div><div class="mini" style="background:#E2BDB4"></div><div class="mlabel">line</div></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

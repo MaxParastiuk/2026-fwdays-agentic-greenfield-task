@@ -1,0 +1,13 @@
+/* ============================================================
+   Webfonts — Job Application Agent
+   ------------------------------------------------------------
+   SUBSTITUTION NOTE: No brand fonts were provided. These are
+   Google Fonts chosen to fit the "considered correspondence"
+   direction. Swap the @import for self-hosted @font-face rules
+   if licensed brand fonts become available.
+     - Newsreader   : editorial serif (display + letter body)
+     - Public Sans  : neutral, civic-grade UI sans
+     - JetBrains Mono: technical/transparency layer
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap');

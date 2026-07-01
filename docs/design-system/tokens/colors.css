@@ -1,0 +1,78 @@
+/* ============================================================
+   Color tokens — Job Application Agent
+   "Considered correspondence": warm paper, ink text,
+   deep navy-ink action, muted editorial semantics.
+   ============================================================ */
+
+:root {
+  /* ---- Base neutrals (warm, paper-leaning) ---- */
+  --paper:            #FAF8F4;  /* app background — warm off-white */
+  --paper-deep:       #F2EFE8;  /* sunken surfaces, wells */
+  --surface:          #FFFFFF;  /* cards, panels */
+  --surface-raised:   #FFFFFF;
+
+  --ink-900:          #1A1815;  /* primary text — warm near-black */
+  --ink-700:          #3D3A33;  /* strong body */
+  --ink-500:          #6B665B;  /* secondary text */
+  --ink-400:          #8C867A;  /* muted / captions */
+  --ink-300:          #B0A99B;  /* placeholder, disabled text */
+  --ink-200:          #D8D2C6;  /* hairlines on dark? rarely */
+
+  --line:             #E6E1D6;  /* default border / divider */
+  --line-strong:      #D6CFC1;  /* emphasized border */
+  --line-soft:        #EFEBE2;  /* faint inner divider */
+
+  /* ---- Brand / action: deep navy ink ---- */
+  --accent-900:       #16273D;
+  --accent-700:       #1E3550;  /* primary resting */
+  --accent-600:       #274463;  /* hover */
+  --accent-500:       #2F5680;  /* active links / focus */
+  --accent-300:       #9FB4CC;  /* disabled accent */
+  --accent-100:       #E7EDF4;  /* tinted accent surface */
+  --accent-050:       #F1F4F9;  /* faint accent wash */
+
+  /* ---- Semantic: score system (muted, editorial) ---- */
+  --pass:             #2E7D57;  /* score >= 8 */
+  --pass-bg:          #E6F0EA;
+  --pass-line:        #BFD9CB;
+
+  --mid:              #A9741A;  /* score 5 – 7.9 */
+  --mid-bg:           #F6EDDA;
+  --mid-line:         #E3CFA3;
+
+  --fail:             #AC3A2B;  /* score < 5 */
+  --fail-bg:          #F5E4E0;
+  --fail-line:        #E2BDB4;
+
+  /* ---- Status (pipeline indicator) ---- */
+  --status-idle:      #B0A99B;
+  --status-run:       #2F5680;
+  --status-done:      #2E7D57;
+  --status-error:     #AC3A2B;
+
+  /* ============================================================
+     Semantic aliases — reference these in components
+     ============================================================ */
+  --bg-app:           var(--paper);
+  --bg-sunken:        var(--paper-deep);
+  --surface-card:     var(--surface);
+
+  --text-strong:      var(--ink-900);
+  --text-body:        var(--ink-700);
+  --text-muted:       var(--ink-500);
+  --text-faint:       var(--ink-400);
+  --text-placeholder: var(--ink-300);
+  --text-on-accent:   #FBFAF7;
+
+  --border-default:   var(--line);
+  --border-strong:    var(--line-strong);
+  --border-soft:      var(--line-soft);
+  --border-focus:     var(--accent-500);
+
+  --action-bg:        var(--accent-700);
+  --action-bg-hover:  var(--accent-600);
+  --action-bg-active: var(--accent-900);
+  --action-text:      var(--text-on-accent);
+
+  --link:             var(--accent-500);
+}
